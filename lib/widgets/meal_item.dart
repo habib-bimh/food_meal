@@ -3,9 +3,12 @@ import 'package:food_meals_app/models/meal.dart';
 import 'package:food_meals_app/widgets/meal_item_trait.dart';
 import 'package:transparent_image/transparent_image.dart';
 
+
 class MealItem extends StatelessWidget {
-  const MealItem({super.key, required this.meal});
+  const MealItem({super.key, required this.meal,required this.onSelectMeal});
   final Meal meal;
+ final void Function(BuildContext context, Meal meal) onSelectMeal;
+
 String get complexityText{
   return meal.complexity.name[0].toUpperCase() + meal.complexity.name.substring(1);
 }
@@ -21,7 +24,9 @@ String get fordabilityText{
       clipBehavior: Clip.hardEdge,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          onSelectMeal(context,meal);
+        },
         child: Stack(
           children: [
             FadeInImage(
@@ -52,12 +57,13 @@ String get fordabilityText{
                             fontWeight: FontWeight.bold),
                       ),
                       Row(
-                        mainAxisSize: MainAxisSize.min,
+                        // mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           MealItemTraid(icon:Icons.schedule, label: "${meal.duration} min"),
-                     const  SizedBox(width:12),
+                    // const  SizedBox(width:12),
                      MealItemTraid(icon:Icons.work, label:complexityText),
-                     const SizedBox(width: 12,),
+                    // const SizedBox(width: 12,),
                      MealItemTraid(icon:Icons.attach_money,label: fordabilityText),
                         ],
                       )
