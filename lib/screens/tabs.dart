@@ -59,7 +59,7 @@ class _TabScreenState extends State<TabScreen> {
     Navigator.of(context).pop();
     if (identifier == "Filters") {
      final result = await Navigator.of(context)
-          .push<Map<Filter, bool>>(MaterialPageRoute(builder: (context) => FistersScreen()));
+          .push<Map<Filter, bool>>(MaterialPageRoute(builder: (context) => FistersScreen(currentFilters: _seletFilter,)));
          setState(() {
             _seletFilter = result ?? kInilialdFilter ;
          });
