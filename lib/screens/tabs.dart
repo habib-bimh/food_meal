@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:food_meals_app/data/dummy_data.dart';
 import 'package:food_meals_app/models/meal.dart';
+import 'package:food_meals_app/provider/meals_provider.dart';
 import 'package:food_meals_app/screens/categories.dart';
 import 'package:food_meals_app/screens/filters.dart';
 import 'package:food_meals_app/screens/meals.dart';
@@ -13,16 +15,16 @@ const kInilialdFilter =  {
     Filter.vegan:false
   };
 
-class TabScreen extends StatefulWidget {
+class TabScreen extends ConsumerStatefulWidget {
   const TabScreen({
     super.key,
   });
 
   @override
-  State<TabScreen> createState() => _TabScreenState();
+ ConsumerState<TabScreen> createState() => _TabScreenState();
 }
 
-class _TabScreenState extends State<TabScreen> {
+class _TabScreenState extends ConsumerState<TabScreen> {
 
   Map<Filter, bool> _seletFilter = kInilialdFilter;
 
@@ -72,8 +74,8 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
-   final availableMeale = dummyMeals.where((meal) {
+   final meals = ref.watch(mealsProvidr);
+   final availableMeale =meals.where((meal) {
     if (_seletFilter[Filter.gluteFree]! && !meal.isGlutenFree){
       return false;
     }
